@@ -76,7 +76,7 @@ class PerNoteItem: UICollectionViewCell {
                 picView.sd_setImage(with: URL(string:url), completed: nil)
                 picView.contentMode = .scaleAspectFill
                 picView.clipsToBounds = true
-                picView.snp.makeConstraints({ (make) in
+                picView.snp.remakeConstraints({ (make) in
                     make.top.equalTo(self)
                     make.left.right.equalTo(self)
                     make.height.equalTo(self.snp.width)
@@ -121,7 +121,7 @@ class PerNoteItem: UICollectionViewCell {
         }
         
         //分割线
-        lineView.snp.makeConstraints { (make) in
+        lineView.snp.remakeConstraints { (make) in
             make.bottom.equalTo(praiseBtn.snp.top).offset(-SM_MRAGIN_5)
             make.left.equalTo(self.snp.left).offset(SM_MRAGIN_5)
             make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_5)
@@ -130,7 +130,7 @@ class PerNoteItem: UICollectionViewCell {
         lineView.backgroundColor = UIColor(white: 0.7, alpha: 0.7)
         
         //点赞
-        praiseBtn.snp.makeConstraints { (make) in
+        praiseBtn.snp.remakeConstraints { (make) in
             make.bottom.equalTo(self.snp.bottom).offset(-SM_MRAGIN_5)
             make.left.equalTo(self.snp.left).offset(SM_MRAGIN_5)
             make.width.equalTo(self.snp.width).multipliedBy(0.5)
@@ -149,7 +149,7 @@ class PerNoteItem: UICollectionViewCell {
         }
         
         //收藏
-        collectBtn.snp.makeConstraints { (make) in
+        collectBtn.snp.remakeConstraints { (make) in
             make.bottom.equalTo(self.praiseBtn.snp.bottom)
             make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_5)
             make.size.equalTo(self.praiseBtn)
@@ -271,12 +271,17 @@ extension FriendCollectOrLikeCell{
             return
         }
         
+        //高度累加
+        var cellH:CGFloat = 0
+        
         //顶部笔记来源View
-        sourceView.snp.makeConstraints { (make) in
+        sourceView.snp.remakeConstraints { (make) in
             make.top.equalTo(self.snp.top)
             make.left.right.equalTo(self)
             make.height.equalTo(FOCUS_CELL_SOURCE_VIEW_HEIGHT)
         }
+        //顶部来源View
+        cellH += FOCUS_CELL_SOURCE_VIEW_HEIGHT
         
         //数据来源标签
         var suffix = ""
@@ -322,35 +327,22 @@ extension FriendCollectOrLikeCell{
             make.left.right.equalTo(self)
             make.height.equalTo(SCROLL_VIEW_HEIGHT)
         }
-        
+        //滚动容器高度
+        cellH += SM_MRAGIN_5 + SCROLL_VIEW_HEIGHT
         
         //底部分割线
-        lineView.snp.makeConstraints { (make) in
+        lineView.snp.remakeConstraints { (make) in
             make.top.equalTo(collectionView.snp.bottom).offset(SM_MRAGIN_15)
             make.left.right.equalTo(self)
             make.height.equalTo(SM_MRAGIN_10)
         }
-        
-    }
-    
-    
-    
-    //MARK: 计算高度
-    class func getHeight(model:FocusModel)->CGFloat{
-        
-        var cellH:CGFloat = 0
-        
-        //顶部来源View
-        cellH += FOCUS_CELL_SOURCE_VIEW_HEIGHT
-        
-        //滚动容器高度
-        cellH += SCROLL_VIEW_HEIGHT
-        
         //底部分割线
-        cellH += SM_MRAGIN_10 + SM_MRAGIN_15
+        cellH += SM_MRAGIN_15 + SM_MRAGIN_10
         
-        return cellH
+        model.cellH = cellH
+        
     }
+    
 }
 
 

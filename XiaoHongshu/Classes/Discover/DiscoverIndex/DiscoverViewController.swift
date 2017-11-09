@@ -162,10 +162,12 @@ extension DiscoverViewController:UICollectionViewDataSource,UICollectionViewDele
     
     func waterFlowLayout(layout: SMWaterFlowLayout,itemWidth:CGFloat,  heightForItemAtIndex index: Int) -> CGFloat {
         var cellH:CGFloat = 0
-        if let model = contentArr[index] as? DiscoverModel {
-            cellH = DiscoverCell.cellHeight(model: model, itemWidth:itemWidth)
-        }
+        let model = contentArr[index]
+        if model.cellH != 0{ return model.cellH }
+        cellH = DiscoverCell.cellHeight(model: model, itemWidth:itemWidth)
+        
         return cellH
+        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -180,9 +182,8 @@ extension DiscoverViewController:UICollectionViewDataSource,UICollectionViewDele
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DISCOVER_COLLECTION_CELL_ID, for: indexPath) as! DiscoverCell
         cell.backgroundColor = UIColor.white
-        if let model = contentArr[indexPath.row] as? DiscoverModel {
-            cell.fillter(model: model)
-        }
+        let model = contentArr[indexPath.row]
+        cell.fillter(model: model)
         return cell
     }
     

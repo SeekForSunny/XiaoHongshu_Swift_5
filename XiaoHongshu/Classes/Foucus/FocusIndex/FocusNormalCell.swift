@@ -15,6 +15,7 @@ class FocusNormalCell: UITableViewCell {
     
     //更多按钮宽高
     static let MORE_BTN_WH =  25*APP_SCALE
+    
     //头像宽高
     static  let ICON_VIEW_WH = 30*APP_SCALE
     
@@ -151,6 +152,9 @@ extension FocusNormalCell{
             return
         }
         
+        //cell累计高度
+        var cellH:CGFloat = 0
+        
         if recommend_reason.contains("friend_post") {
             //已关注人的笔记
             
@@ -173,7 +177,7 @@ extension FocusNormalCell{
             moreBtn.snp.remakeConstraints({ (make) in
                 make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_15)
                 make.centerY.equalTo(nameLabel.snp.centerY)
-                            make.size.equalTo(CGSize(width: FocusNormalCell.ICON_VIEW_WH, height: FocusNormalCell.ICON_VIEW_WH))
+                make.size.equalTo(CGSize(width: FocusNormalCell.ICON_VIEW_WH, height: FocusNormalCell.ICON_VIEW_WH))
             })
             
             //昵称
@@ -183,6 +187,9 @@ extension FocusNormalCell{
                 make.bottom.equalTo(iconView.snp.centerY)
                 make.left.equalTo(iconView.snp.right).offset(SM_MRAGIN_10)
             }
+            
+            //头像高度
+            cellH += SM_MRAGIN_10 + FocusNormalCell.ICON_VIEW_WH
             
             
         } else {
@@ -201,7 +208,7 @@ extension FocusNormalCell{
             var suffix = ""
             if recommend_reason.contains("friend_collect") {
                 //已关注的人收藏了未关注的人的笔记
-           suffix = " 收藏了笔记"
+                suffix = " 收藏了笔记"
             } else if recommend_reason.contains("friend_like") {
                 //单条: Missgreenberry 赞了笔记
                 suffix = " 赞了笔记"
@@ -264,10 +271,14 @@ extension FocusNormalCell{
                 make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_15)
                 make.size.equalTo(CGSize(width: 50*APP_SCALE, height: 25*APP_SCALE))
             })
+        
+            //来源View高度
+            cellH +=  FOCUS_CELL_SOURCE_VIEW_HEIGHT
             
-
+            //头像高度
+            cellH += SM_MRAGIN_10 + FocusNormalCell.ICON_VIEW_WH
         }
-
+        
         
         //发布时间
         if let time = model.note_list?.first?.time {
@@ -280,7 +291,7 @@ extension FocusNormalCell{
             make.left.equalTo(nameLabel)
             make.top.equalTo(iconView.snp.centerY)
         }
-
+        
         //图片
         if let picInfo = model.note_list?.first?.images_list?.first{
             
@@ -298,6 +309,8 @@ extension FocusNormalCell{
                         })
                         picView.contentMode = .scaleAspectFill
                         picView.clipsToBounds = true
+                        //图片高度
+                        cellH += SM_MRAGIN_10 + picH
                     }
                     
                 }
@@ -318,6 +331,8 @@ extension FocusNormalCell{
                 make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_15)
                 make.height.equalTo(titleH)
             })
+            //标题高度
+            cellH += SM_MRAGIN_10 + titleH
         }
         
         //描述内容
@@ -335,6 +350,9 @@ extension FocusNormalCell{
                 make.height.equalTo(contentH)
             })
             descLabel.textColor = UIColor.red
+            
+            //内容高度
+            cellH += SM_MRAGIN_10 + contentH
         }
         
         //底部工具条
@@ -343,6 +361,8 @@ extension FocusNormalCell{
             make.left.right.equalTo(self)
             make.height.equalTo(FOCUS_CELL_TOOL_BAR_HEIGHT)
         }
+        //底部工具条
+        cellH += SM_MRAGIN_10 + FOCUS_CELL_TOOL_BAR_HEIGHT
         
         //底部分割线
         lineView.snp.remakeConstraints { (make) in
@@ -351,71 +371,10 @@ extension FocusNormalCell{
             make.height.equalTo(SM_MRAGIN_10)
         }
         
-    }
-    
-    //MARK: 计算Cell高度
-    class func getHeight(model:FocusModel)->CGFloat{
-        
-        var cellH:CGFloat = 0
-        
-        guard let recommend_reason = model.recommend_reason else {
-            return cellH
-        }
-        
-        if recommend_reason.contains("friend_post") {
-            //已关注人的笔记
-        } else if recommend_reason.contains("friend_collect") {
-            //已关注的人收藏了未关注的人的笔记
-            //顶部笔记来源View高度
-            cellH +=  FOCUS_CELL_SOURCE_VIEW_HEIGHT
-            
-        } else if recommend_reason.contains("friend_like") {
-            //单条: Missgreenberry 赞了笔记
-            //顶部笔记来源View高度
-            cellH +=  FOCUS_CELL_SOURCE_VIEW_HEIGHT
-        }else{ //其他
-            return cellH
-        }
-        
-        //头像高度
-        cellH += SM_MRAGIN_10 + ICON_VIEW_WH
-        
-        //图片高度
-        if let picInfo = model.note_list?.first?.images_list?.first{
-            
-            if let _ = picInfo["url"] as? String{
-                if let height = picInfo["height"] as? CGFloat {
-                    if let width = picInfo["width"] as? CGFloat {
-                        let rate = CGFloat(width/height)
-                        cellH += SM_MRAGIN_10 + SCREEN_WIDTH / rate
-                    }
-                }
-            }
-            
-        }
-        
-        //标题
-        if let title = model.note_list?.first?.title {
-            
-            let titleH =  Utils.textH(text: title, font: UIFont.boldSystemFont(ofSize: 15*APP_SCALE), width: SCREEN_WIDTH - 2*SM_MRAGIN_15, numberOfLine: 2)
-            cellH += SM_MRAGIN_10 + titleH
-            
-        }
-        
-        //内容
-        if let desc = model.note_list?.first?.desc {
-            
-            let contentH = Utils.textH(text: desc, font: UIFont.systemFont(ofSize: 15*APP_SCALE), width: SCREEN_WIDTH - 2*SM_MRAGIN_15, numberOfLine: 2)
-            cellH += SM_MRAGIN_10 + contentH
-        }
-        
-        //底部工具条
-        cellH += SM_MRAGIN_10 + FOCUS_CELL_TOOL_BAR_HEIGHT
-        
         //底部分割线
         cellH += SM_MRAGIN_10
         
-        return cellH
+        model.cellH = cellH
         
     }
     

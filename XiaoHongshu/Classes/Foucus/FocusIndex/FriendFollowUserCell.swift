@@ -69,7 +69,7 @@ class PerFollowUserItem: UIView {
         let clcount = collectedCount + likedCount
         var info = "\(clcount)个赞与收藏  \(fansCount)个粉丝"
         if clcount / 10000 > 1 {
-           info = "\(clcount / 10000)万个赞与收藏  \(fansCount)个粉丝"
+            info = "\(clcount / 10000)万个赞与收藏  \(fansCount)个粉丝"
         }
         if fansCount / 10000 > 1 {
             info = "\(clcount)个赞与收藏  \(fansCount/10000)万个粉丝"
@@ -96,10 +96,10 @@ class PerFollowUserItem: UIView {
             nameLabel.textColor = UIColor.darkGray
         }
         
-
-
+        
+        
         //关注按钮
-        focusBtn.snp.makeConstraints { (make) in
+        focusBtn.snp.remakeConstraints { (make) in
             make.right.equalTo(self).offset(-SM_MRAGIN_15)
             make.centerY.equalTo(self)
             make.size.equalTo(CGSize(width:50*APP_SCALE,height:25*APP_SCALE))
@@ -189,15 +189,20 @@ extension FriendFollowUserCell{
     
     func fillter(model:FocusModel) {
         
+        //累计高度
+        var cellH:CGFloat = 0
+        
         //来源View
-        sourceView.snp.makeConstraints { (make) in
+        sourceView.snp.remakeConstraints { (make) in
             make.top.equalTo(self)
             make.left.right.equalTo(self)
             make.height.equalTo(FOCUS_CELL_SOURCE_VIEW_HEIGHT)
         }
+        //来源View
+        cellH += FOCUS_CELL_SOURCE_VIEW_HEIGHT
         
         //来源Label
-        sourceLabel.snp.makeConstraints { (make) in
+        sourceLabel.snp.remakeConstraints { (make) in
             make.centerY.equalTo(sourceView)
             make.left.equalTo(sourceView.snp.left).offset(SM_MRAGIN_15)
         }
@@ -233,7 +238,7 @@ extension FriendFollowUserCell{
                         item.fillter(model: model)
                     }
                     item.backgroundColor = UIColor.white
-                    item.snp.makeConstraints({ (make) in
+                    item.snp.remakeConstraints({ (make) in
                         make.left.right.equalTo(listView)
                         make.height.equalTo(PER_LISTVIEW_ITEM_HEIGHT)
                         make.top.equalTo(CGFloat(i)*PER_LISTVIEW_ITEM_HEIGHT + CGFloat(i-1)*SM_MRAGIN_10)
@@ -245,40 +250,28 @@ extension FriendFollowUserCell{
             setupListView()
             
         }
-        listView.snp.makeConstraints { (make) in
+        listView.snp.remakeConstraints { (make) in
             make.top.equalTo(sourceView.snp.bottom).offset(SM_MRAGIN_10)
             make.left.equalTo(self.snp.left).offset(SM_MRAGIN_15)
             make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_15)
             make.height.equalTo(listViewH)
         }
+        //listView高度
+        cellH += SM_MRAGIN_10 + listViewH
         
         
         //底部分割线
         lineView.backgroundColor = BACK_GROUND_COLOR
-        lineView.snp.makeConstraints { (make) in
+        lineView.snp.remakeConstraints { (make) in
             make.top.equalTo(listView.snp.bottom).offset(SM_MRAGIN_10)
             make.left.right.equalTo(self)
             make.height.equalTo(SM_MRAGIN_10)
         }
-    }
-    
-    class func getHeight(model:FocusModel)->CGFloat{
-        
-        var cellH:CGFloat = 0
-        
-        //来源View
-        cellH += FOCUS_CELL_SOURCE_VIEW_HEIGHT
-        
-        var listViewH:CGFloat = 0
-        if let count = model.followed_count {
-            listViewH = CGFloat(count) * (SM_MRAGIN_15 + PER_LISTVIEW_ITEM_HEIGHT)
-        }
-        cellH += SM_MRAGIN_10 + listViewH
-        
         //底部分割线
         cellH += SM_MRAGIN_10 + SM_MRAGIN_10
         
-        return cellH
+        model.cellH = cellH
+        
     }
     
 }

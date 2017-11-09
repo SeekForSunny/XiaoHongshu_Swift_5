@@ -10,7 +10,7 @@
 import UIKit
 import SwiftyJSON
 import ObjectMapper
-import UITableView_FDTemplateLayoutCell
+
 class FocusViewController: UITableViewController {
     
     //数据
@@ -20,11 +20,11 @@ class FocusViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //初始化设置
-        setupUIContent()
-        
         //网络请求
         loadData()
+        
+        //初始化设置
+        setupUIContent()
         
     }
     
@@ -40,8 +40,6 @@ extension FocusViewController{
         //设置分割线样式
         tableView.separatorStyle = .none
         
-        //注册Cell
-        tableView.register(RecommendUserCell.self, forCellReuseIdentifier: RecommendUserCell.identifier)
     }
     
 }
@@ -85,14 +83,11 @@ extension FocusViewController{
         
         let defaultCell = DefaultTableViewCell.cell(tableView: tableView)
         
-        guard let model = contentArr[indexPath.row] as? FocusModel else {
-            return defaultCell
-        }
+        let model = contentArr[indexPath.row]
         
         guard let recommend_reason = model.recommend_reason  else{
             return defaultCell
         }
-        
         if recommend_reason.contains("friend_post") { //已关注人的笔记
             
             let cell = FocusNormalCell.cell(tableView: tableView)
@@ -151,86 +146,14 @@ extension FocusViewController{
         
     }
     
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 300
+    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let defaultH = 0*APP_SCALE
-        
-        guard let model = contentArr[indexPath.row] as? FocusModel else {
-            return defaultH
-        }
-        
-        guard let recommend_reason = model.recommend_reason  else{
-            return defaultH
-        }
-        
-        if recommend_reason.contains("friend_post") { //已关注人的笔记
-            
-            if model.cellH  != 0 { return model.cellH }
-            let cellH = FocusNormalCell.getHeight(model: model)
-            model.cellH = cellH
-            return cellH
-            
-        } else if recommend_reason.contains("friend_collect") { //已关注的人收藏了未关注的人的笔记
-            
-            //LittleJ 收藏了笔记
-            if model.note_list?.count == 1 {
-                if model.cellH  != 0 { return model.cellH }
-                let cellH = FocusNormalCell.getHeight(model: model)
-                model.cellH = cellH
-                return cellH
-            }else{
-                //LittleJ 收藏了 3 篇笔记
-                if model.cellH  != 0 { return model.cellH }
-                let cellH =  FriendCollectOrLikeCell.getHeight(model: model)
-                model.cellH = cellH
-                return cellH
-            }
-            
-        } else if recommend_reason.contains("friend_like") {
-            
-            //已关注的人给未关注的人点赞的笔记
-            if model.note_list?.count == 1 {
-                //单条: Missgreenberry 赞了笔记
-                if model.cellH  != 0 { return model.cellH }
-                let cellH = FocusNormalCell.getHeight(model: model)
-                model.cellH = cellH
-                return cellH
-            } else{
-                //多条: 叫我诺诺 赞了 6篇笔记
-                if model.cellH  != 0 { return model.cellH }
-                let cellH =  FriendCollectOrLikeCell.getHeight(model: model)
-                model.cellH = cellH
-                return cellH
-            }
-            
-        } else if recommend_reason.contains("recommend_user") {
-            
-            //你可能感兴趣的用户
-            if model.cellH  != 0 { return model.cellH }
-            let cellH =  RecommendUserCell.getHeight(model: model)
-            model.cellH = cellH
-            return cellH
-    
-        } else  if recommend_reason.contains("friend_follow_user"){
-            
-            //叫我诺诺 关注了 2 位用户
-            if model.cellH  != 0 { return model.cellH }
-            let cellH =  FriendFollowUserCell.getHeight(model: model)
-            model.cellH = cellH
-            return cellH
-            
-        } else  if recommend_reason.contains("new_arrival"){
-            
-            //小红书福利社 上架了8个新品
-            //return FriendFollowUserCell.getHeight(model: model)
-            return defaultH
-            
-        } else{
-            
-            return defaultH
-            
-        }
+        let model = contentArr[indexPath.row]
+        return model.cellH
         
     }
     

@@ -37,6 +37,7 @@ class DiscoverModel: Mappable {
     var user: D_UserModel?//,
     var video_id: String?//"59f09b2e91c72c65fff11637",
     var video_info: D_VideoInfoModel?
+    var cellH: CGFloat = 0
     
     required init?(map: Map) {
         
@@ -69,6 +70,7 @@ class DiscoverModel: Mappable {
         user <- map["user"]
         video_id <- map["video_id"]
         video_info <- map["video_info"]
+        cellH <- map["cellH"]
     }
 }
 

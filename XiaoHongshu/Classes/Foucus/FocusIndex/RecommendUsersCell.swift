@@ -55,7 +55,7 @@ class PerRecUserItem: UICollectionViewCell {
     func fillter(model:F_UserModel){
         
         //头像
-        iconView.snp.makeConstraints { (make) in
+        iconView.snp.remakeConstraints { (make) in
             make.centerX.equalTo(self)
             make.top.equalTo(self.snp.top).offset(SM_MRAGIN_15)
             make.width.height.equalTo(USER_ICON_VIEW_WH)
@@ -91,9 +91,9 @@ class PerRecUserItem: UICollectionViewCell {
             infoLabel.font = SYSTEM_FONT_12
             infoLabel.textColor = LIGHT_TEXT_COLOR
         }
-
+        
         //关注按钮
-        focusBtn.snp.makeConstraints { (make) in
+        focusBtn.snp.remakeConstraints { (make) in
             make.centerX.equalTo(iconView)
             make.bottom.equalTo(hiddenBtn.snp.top).offset(-SM_MRAGIN_10)
             make.size.equalTo(CGSize(width:100*APP_SCALE, height:25*APP_SCALE))
@@ -104,9 +104,9 @@ class PerRecUserItem: UICollectionViewCell {
         focusBtn.setTitle("关注", for: UIControlState.normal)
         focusBtn.setTitleColor(UIColor.red, for: UIControlState.normal)
         focusBtn.titleLabel?.font = SYSTEM_FONT_13
-
+        
         //隐藏按钮
-        hiddenBtn.snp.makeConstraints { (make) in
+        hiddenBtn.snp.remakeConstraints { (make) in
             make.centerX.equalTo(iconView)
             make.bottom.equalTo(self.snp.bottom).offset(-SM_MRAGIN_10)
             make.size.equalTo(CGSize(width:100*APP_SCALE, height:25*APP_SCALE))
@@ -114,7 +114,6 @@ class PerRecUserItem: UICollectionViewCell {
         hiddenBtn.setTitle("隐藏", for: UIControlState.normal)
         hiddenBtn.setTitleColor(LIGHT_TEXT_COLOR, for: UIControlState.normal)
         hiddenBtn.titleLabel?.font = SYSTEM_FONT_12
-                
         
     }
 }
@@ -192,23 +191,28 @@ class RecommendUserCell: UITableViewCell{
 
 //MARK: - 填充数据
 extension RecommendUserCell{
-
+    
     //数据源方法
     func fillter(model:FocusModel){
         self.model = model
         collectionView.reloadData()
         
+        //cell高度
+        var cellH:CGFloat = 0
+        
         //数据来源View
-        sourceView.snp.makeConstraints { (make) in
+        sourceView.snp.remakeConstraints { (make) in
             make.top.left.right.equalTo(self)
             make.height.equalTo(FOCUS_CELL_SOURCE_VIEW_HEIGHT)
         }
+        //数据来源View
+        cellH += FOCUS_CELL_SOURCE_VIEW_HEIGHT
         
         //数据来源
         sourceLabel.text = "你可能感兴趣的用户"
         sourceLabel.textColor = UIColor.darkGray
         sourceLabel.font = SYSTEM_FONT_15
-        sourceLabel.snp.makeConstraints { (make) in
+        sourceLabel.snp.remakeConstraints { (make) in
             make.left.equalTo(self.sourceView.snp.left).offset(SM_MRAGIN_15)
             make.top.equalTo(self.sourceView.snp.top).offset(SM_MRAGIN_15)
         }
@@ -217,44 +221,33 @@ extension RecommendUserCell{
         moreBtn.setTitle("查看更多", for: UIControlState.normal)
         moreBtn.titleLabel?.font = SYSTEM_FONT_13
         moreBtn.setTitleColor(UIColor.lightGray, for: UIControlState.normal)
-        moreBtn.snp.makeConstraints { (make) in
+        moreBtn.snp.remakeConstraints { (make) in
             make.right.equalTo(self.sourceView.snp.right).offset(-SM_MRAGIN_15)
             make.centerY.equalTo(self.sourceView.snp.centerY)
             make.size.equalTo(CGSize(width: 70*APP_SCALE, height: 35*APP_SCALE))
         }
         
         //容器View
-        collectionView.snp.makeConstraints { (make) in
+        collectionView.snp.remakeConstraints { (make) in
             make.top.equalTo(sourceView.snp.bottom).offset(SM_MRAGIN_5)
             make.left.right.equalTo(self)
             make.height.equalTo(SCROLL_VIEW_HEIGHT)
         }
-        
-        //分割线
-        lineView.backgroundColor = BACK_GROUND_COLOR
-        lineView.snp.makeConstraints { (make) in
-            make.top.equalTo(collectionView.snp.bottom).offset(SM_MRAGIN_5)
-            make.left.right.equalTo(self)
-            make.height.equalTo(10*APP_SCALE)
-        }
-        
-    }
-    
-    //获取Cell高度
-    static func getHeight(model:FocusModel)->CGFloat{
-        
-        var cellH:CGFloat = 0
-        
-        //数据来源View
-        cellH += FOCUS_CELL_SOURCE_VIEW_HEIGHT
-        
         //内容滚动View
         cellH += SM_MRAGIN_5 + SCROLL_VIEW_HEIGHT
         
         //分割线
+        lineView.backgroundColor = BACK_GROUND_COLOR
+        lineView.snp.remakeConstraints { (make) in
+            make.top.equalTo(collectionView.snp.bottom).offset(SM_MRAGIN_5)
+            make.left.right.equalTo(self)
+            make.height.equalTo(10*APP_SCALE)
+        }
+        //分割线
         cellH += SM_MRAGIN_5 + 10*APP_SCALE
         
-        return cellH
+        model.cellH = cellH
+        
     }
     
 }
