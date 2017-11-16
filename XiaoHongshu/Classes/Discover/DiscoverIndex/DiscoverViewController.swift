@@ -103,6 +103,7 @@ extension DiscoverViewController{
     }
     
     func setupUIContent()  {
+        
         setupTitleView()
         
         //设置collectionView
@@ -127,7 +128,6 @@ extension DiscoverViewController{
             case let .success(response):
                 let json = JSON(data: response.data)
                 if let titleArr = json["data"].arrayObject as? [[String:String]] {
-                    print(titleArr)
                     self?.fillter(titleArr: titleArr)
                 }
             case let .failure(error):
@@ -159,6 +159,7 @@ extension DiscoverViewController{
 }
 
 extension DiscoverViewController:UICollectionViewDataSource,UICollectionViewDelegate,SMWaterFlowLayoutDataSource{
+    func waterFlowLayout(layout: SMWaterFlowLayout, contentHeight: CGFloat) { }
     
     func waterFlowLayout(layout: SMWaterFlowLayout,itemWidth:CGFloat,  heightForItemAtIndex index: Int) -> CGFloat {
         var cellH:CGFloat = 0
@@ -189,8 +190,10 @@ extension DiscoverViewController:UICollectionViewDataSource,UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let detailVc =  NoteDetailViewController()
-        
+        let detailVc =  FocusDetailViewController()
+        let model = contentArr[indexPath.row]
+        detailVc.note_id = model.id
+        detailVc.images_list = model.images_list
         self.navigationController?.pushViewController(detailVc, animated: true)
     }
 }

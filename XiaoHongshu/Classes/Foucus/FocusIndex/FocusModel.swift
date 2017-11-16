@@ -14,9 +14,9 @@ class FocusModel: Mappable {
     var note_list:[F_NoteModel]?
     var recommend_reason:String?
     var track_id:String?
-    var user:F_UserModel?
-    var users:[F_UserModel]?
-    var user_list:[F_UserModel]?
+    var user:UserModel?
+    var users:[UserModel]?
+    var user_list:[UserModel]?
     var followed_count:Int?
     var friends_count:Int?
     var notes_count:Int?
@@ -33,6 +33,7 @@ class FocusModel: Mappable {
         
         cursor <- map["cursor"]
         note_list <- map["note_list"]
+        vendor_list <- map["vendor_list"]
         recommend_reason <- map["recommend_reason"]
         track_id <- map["track_id"]
         user <- map["user"]
@@ -106,24 +107,8 @@ class F_ProductModel: Mappable {
     }
 }
 
-//class F_UserModel: Mappable {
-//    var id:String?//  "567df0941c07df02d42bf6f8",
-//    var link:String?//  "xhsdiscover://user/567df0941c07df02d42bf6f8",
-//    var name:String?//  "叫我诺诺"
-//    var level:[String:AnyObject]?
-//
-//    required init?(map: Map) {
-//
-//    }
-//
-//    func mapping(map: Map) {
-//
-//        id <- map["id"]
-//        link <- map["link"]
-//        name <- map["name"]
-//        level <- map["level"]
-//    }
-//}
+
+
 
 
 class F_VendorModel: Mappable {
@@ -167,7 +152,7 @@ class F_NoteModel: Mappable {
     var comments_count: Int?
     var desc: String? //"#周末探店#W酒店 周末朋友小聚",
     var id: String? //"59eca406c8e55d3b05c7e5ec",
-    var images_list: [[String:Any]]?
+    var images_list: [ImageModel]?
     var is_goods_note:Bool?
     var liked: Bool?
     var liked_count: Int?
@@ -176,12 +161,16 @@ class F_NoteModel: Mappable {
     var price: Int?
     var share_info:[String:AnyObject]?
     var shared_count: Int?
-    var time: Int?
+    var time: TimeInterval?
     var title: String? //"打卡网红酒店 W酒店🌃",
     var type: String? //"normal",
     var video: [String:AnyObject]?
     var viewed_count: Int?
-    var user: F_UserModel?
+    var user: UserModel?
+    var titleH:CGFloat?//标题高度
+    var descH:CGFloat?//描述内容高度
+    var descAttrText:NSAttributedString? // 富文本信息
+    var titleAttrText:NSAttributedString? // 富文本信息
     
     required init?(map: Map) {
         
@@ -209,15 +198,19 @@ class F_NoteModel: Mappable {
         video <- map["video"]
         viewed_count <- map["viewed_count"]
         user <- map["user"]
+        descH <- map["descH"]
+        titleH <- map["titleH"]
+        titleAttrText <- map["titleAttrText"]
+        descAttrText <- map["descAttrText"]
         
     }
 }
 
 //用户模型
-class F_UserModel: Mappable {
+class UserModel: Mappable {
     
     var desc: String? // "院长小朋友 等13位好友也关注了",
-    var id:String? //  "5594a6665894464be38ce6ed",
+    var userid:String? //  "5594a6665894464be38ce6ed",
     var followed: Bool?
     var image:String? // "https://img.xiaohongshu.com/avatar/57a1c183e9521a72780dbdc9.jpg@120w_120h_92q_1e_1c_1x.jpg",
     var index:Int? // 0,
@@ -231,6 +224,9 @@ class F_UserModel: Mappable {
     var notes_count: Int?//11,
     var share_link: Int?//"xhsdiscover://user/597f412f82ec39713bfd686c"
     var level:[String:Any]?
+    var images:String?
+    var nickname:String?
+    var descH: CGFloat?
     
     required init?(map: Map) {
         
@@ -238,12 +234,15 @@ class F_UserModel: Mappable {
     
     func mapping(map: Map) {
         
+        descH <- map["descH"]
         desc <- map["desc"]
-        id <- map["id"]
+        userid <- map["userid"]
         followed <- map["followed"]
         image <- map["image"]
+        images <- map["images"]
         index <- map["index"]
         name <- map["name"]
+        nickname <- map["nickname"]
         red_official_verified <- map["red_official_verified"]
         track_id <- map["track_id"]
         boards_count <- map["boards_count"]

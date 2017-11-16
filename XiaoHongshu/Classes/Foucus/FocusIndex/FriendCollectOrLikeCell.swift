@@ -23,6 +23,8 @@ class PerNoteItem: UICollectionViewCell {
     fileprivate lazy var picView:UIImageView = {
         let picView = UIImageView()
         self.addSubview(picView)
+        picView.contentMode = .scaleAspectFill
+        picView.clipsToBounds = true
         return picView
     }()
     
@@ -30,6 +32,7 @@ class PerNoteItem: UICollectionViewCell {
     fileprivate lazy var titleLable:TTTAttributedLabel = {
         let titleLable = TTTAttributedLabel(frame:CGRect.zero)
         self.addSubview(titleLable)
+        titleLable.numberOfLines = 2
         return titleLable
     }()
     
@@ -68,69 +71,62 @@ class PerNoteItem: UICollectionViewCell {
         return collectBtn
     }()
     
-    func fillter(model:F_NoteModel){
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUIContent()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupUIContent(){
         
         //描述图片
-        if let map =  model.images_list?.first {
-            if let url = map["url"] as? String {
-                picView.sd_setImage(with: URL(string:url), completed: nil)
-                picView.contentMode = .scaleAspectFill
-                picView.clipsToBounds = true
-                picView.snp.remakeConstraints({ (make) in
-                    make.top.equalTo(self)
-                    make.left.right.equalTo(self)
-                    make.height.equalTo(self.snp.width)
-                })
-            }
-        }
+        picView.snp.makeConstraints({ (make) in
+            make.top.left.equalTo(self)
+            make.width.height.equalTo(self.snp.width)
+        })
         
         //标题
-        var textH:CGFloat = 0
-        if let title = model.title {
-            textH = titleLable.textH(text: title, font: UIFont.boldSystemFont(ofSize: 14*APP_SCALE), width: PERCARED_VIEW_WIDTH - 2*SM_MRAGIN_5, numberOfLine: 2)
-            titleLable.snp.remakeConstraints({ (make) in
-                make.top.equalTo(picView.snp.bottom).offset(SM_MRAGIN_5)
-                make.left.equalTo(self.snp.left).offset(SM_MRAGIN_5)
-                make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_5)
-                make.height.equalTo(textH)
-            })
-        }
+        titleLable.snp.makeConstraints({ (make) in
+            make.top.equalTo(picView.snp.bottom).offset(SM_MRAGIN_5)
+            make.left.equalTo(self.snp.left).offset(SM_MRAGIN_5)
+            make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_5)
+            make.height.equalTo(0)
+        })
         
         //头像
-        if let url = model.user?.image {
-            let viewWH = 30*APP_SCALE
-            iconView.sd_setImage(with: URL(string:url), completed: nil)
-            iconView.layer.cornerRadius = viewWH * 0.5
-            iconView.clipsToBounds = true
-            iconView.snp.remakeConstraints({ (make) in
-                make.top.equalTo(picView.snp.bottom).offset(SM_MRAGIN_5 + textH + SM_MRAGIN_5)
-                make.left.equalTo(self.snp.left).offset(SM_MRAGIN_5)
-                make.height.width.equalTo(viewWH)
-            })
-        }
+        let viewWH = 30*APP_SCALE
+        iconView.layer.cornerRadius = viewWH * 0.5
+        iconView.clipsToBounds = true
+        iconView.snp.makeConstraints({ (make) in
+            make.bottom.equalTo(lineView.snp.top).offset(-SM_MRAGIN_5)
+            make.left.equalTo(self.snp.left).offset(SM_MRAGIN_5)
+            make.height.width.equalTo(viewWH)
+        })
         
         //昵称
-        if let name = model.user?.name {
-            nameLabel.text = name
-            nameLabel.font = UIFont.systemFont(ofSize: 12*APP_SCALE)
-            nameLabel.snp.remakeConstraints({ (make) in
-                make.centerY.equalTo(iconView.snp.centerY)
-                make.left.equalTo(iconView.snp.right).offset(SM_MRAGIN_5)
-                make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_5)
-            })
-        }
+        nameLabel.font = UIFont.systemFont(ofSize: 12*APP_SCALE)
+        nameLabel.snp.makeConstraints({ (make) in
+            make.centerY.equalTo(iconView.snp.centerY)
+            make.left.equalTo(iconView.snp.right).offset(SM_MRAGIN_5)
+            make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_5)
+        })
         
         //分割线
-        lineView.snp.remakeConstraints { (make) in
+        lineView.snp.makeConstraints { (make) in
             make.bottom.equalTo(praiseBtn.snp.top).offset(-SM_MRAGIN_5)
             make.left.equalTo(self.snp.left).offset(SM_MRAGIN_5)
             make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_5)
             make.height.equalTo(0.5)
+            
         }
         lineView.backgroundColor = UIColor(white: 0.7, alpha: 0.7)
         
         //点赞
-        praiseBtn.snp.remakeConstraints { (make) in
+        praiseBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.snp.bottom).offset(-SM_MRAGIN_5)
             make.left.equalTo(self.snp.left).offset(SM_MRAGIN_5)
             make.width.equalTo(self.snp.width).multipliedBy(0.5)
@@ -138,6 +134,50 @@ class PerNoteItem: UICollectionViewCell {
         }
         praiseBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13*APP_SCALE)
         praiseBtn.setTitleColor(LIGHT_TEXT_COLOR, for: UIControlState.normal)
+        
+        //收藏
+        collectBtn.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.praiseBtn.snp.bottom)
+            make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_5)
+            make.size.equalTo(self.praiseBtn)
+        }
+        collectBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13*APP_SCALE)
+        collectBtn.setTitleColor(LIGHT_TEXT_COLOR, for: UIControlState.normal)
+        
+    }
+    
+    func fillter(model:F_NoteModel){
+        
+        //描述图片
+        if let map =  model.images_list?.first {
+            if let url = map.url {
+                picView.sd_setImage(with: URL(string:url), completed: nil)
+                picView.contentMode = .scaleAspectFill
+                picView.clipsToBounds = true
+            }
+        }
+        
+        //标题
+        var textH:CGFloat = 0
+        
+        if let title = model.title {
+            textH = titleLable.textH(text: title, font: UIFont.boldSystemFont(ofSize: 14*APP_SCALE), width: PERCARED_VIEW_WIDTH - 2*SM_MRAGIN_5, numberOfLine: 2,lineSpacing:2)
+        }
+        titleLable.snp.updateConstraints({ (make) in
+            make.height.equalTo(textH)
+        })
+        
+        //头像
+        if let url = model.user?.image {
+            iconView.sd_setImage(with: URL(string:url), completed: nil)
+        }
+        
+        //昵称
+        if let name = model.user?.name {
+            nameLabel.text = name
+        }
+        
+        //点赞
         if let likedCount = model.liked_count {
             if likedCount > 0 {
                 praiseBtn.setTitle( "\(likedCount)", for: UIControlState.normal)
@@ -149,13 +189,6 @@ class PerNoteItem: UICollectionViewCell {
         }
         
         //收藏
-        collectBtn.snp.remakeConstraints { (make) in
-            make.bottom.equalTo(self.praiseBtn.snp.bottom)
-            make.right.equalTo(self.snp.right).offset(-SM_MRAGIN_5)
-            make.size.equalTo(self.praiseBtn)
-        }
-        collectBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13*APP_SCALE)
-        collectBtn.setTitleColor(LIGHT_TEXT_COLOR, for: UIControlState.normal)
         if let collectCount = model.collected_count {
             if collectCount > 0 {
                 collectBtn.setTitle( "\(collectCount)", for: UIControlState.normal)
@@ -175,11 +208,10 @@ class PerNoteItem: UICollectionViewCell {
 
 class FriendCollectOrLikeCell: UITableViewCell {
     
-    
     //笔记来源View
     lazy var sourceView : UIView = {
         let sourceView = UIView()
-        self.addSubview(sourceView)
+        self.contentView.addSubview(sourceView)
         return sourceView
     }()
     
@@ -206,7 +238,7 @@ class FriendCollectOrLikeCell: UITableViewCell {
         layout.sectionInset = UIEdgeInsets(top: SM_MRAGIN_5, left: SM_MRAGIN_10, bottom: SM_MRAGIN_5, right: 0)
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout:layout )
         collectionView.register(PerNoteItem.self, forCellWithReuseIdentifier: PerNoteItem.identifier)
-        self.addSubview(collectionView)
+        self.contentView.addSubview(collectionView)
         layout.scrollDirection = .horizontal
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -229,7 +261,7 @@ class FriendCollectOrLikeCell: UITableViewCell {
     //底部分割线
     lazy var lineView:UIView = {
         let lineView = UIView()
-        self.addSubview(lineView)
+        self.contentView.addSubview(lineView)
         lineView.backgroundColor = BACK_GROUND_COLOR
         return lineView
     }()
@@ -249,10 +281,50 @@ class FriendCollectOrLikeCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: UITableViewCellStyle.default, reuseIdentifier: reuseIdentifier)
+        setupUIContent()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    //初始化内容View
+    func setupUIContent(){
+        
+        //笔记来源View
+        sourceView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top)
+            make.left.right.equalTo(self)
+            make.height.equalTo(FOCUS_CELL_SOURCE_VIEW_HEIGHT)
+        }
+        
+        //来源Label
+        sourceLable.snp.makeConstraints({ (make) in
+            make.centerY.equalTo(sourceView.snp.centerY)
+            make.left.equalTo(sourceView.snp.left).offset(SM_MRAGIN_15)
+        })
+        
+        //更多按钮
+        moreBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(sourceView.snp.right).offset(-SM_MRAGIN_15)
+            make.centerY.equalTo(sourceView.snp.centerY)
+            make.width.height.equalTo(25*APP_SCALE)
+        }
+        
+        //容器View
+        collectionView.snp.makeConstraints { (make) in
+            make.top.equalTo(sourceView.snp.bottom).offset(SM_MRAGIN_5)
+            make.left.right.equalTo(self)
+            make.height.equalTo(SCROLL_VIEW_HEIGHT)
+        }
+        
+        //底部分割线
+        lineView.snp.makeConstraints { (make) in
+            make.top.equalTo(collectionView.snp.bottom).offset(SM_MRAGIN_15)
+            make.left.right.equalTo(self)
+            make.height.equalTo(SM_MRAGIN_10)
+        }
+        
     }
     
 }
@@ -264,24 +336,14 @@ extension FriendCollectOrLikeCell{
     //MARK: 数据填充
     func fillter(model:FocusModel){
         
-        self.model = model
-        collectionView.reloadData()
-        
         guard let recommend_reason = model.recommend_reason else {
             return
         }
         
         //高度累加
         var cellH:CGFloat = 0
-        
-        //顶部笔记来源View
-        sourceView.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.snp.top)
-            make.left.right.equalTo(self)
-            make.height.equalTo(FOCUS_CELL_SOURCE_VIEW_HEIGHT)
-        }
-        //顶部来源View
-        cellH += FOCUS_CELL_SOURCE_VIEW_HEIGHT
+        self.model = model
+        self.collectionView.reloadData()
         
         //数据来源标签
         var suffix = ""
@@ -304,41 +366,18 @@ extension FriendCollectOrLikeCell{
                                              range: NSRange(location: name.characters.count, length: source.characters.count - name.characters.count))
                 sourceLable.attributedText = attributedText
                 
-                sourceLable.snp.remakeConstraints({ (make) in
-                    make.centerY.equalTo(sourceView.snp.centerY)
-                    make.left.equalTo(sourceView.snp.left).offset(SM_MRAGIN_15)
-                })
-                
             }
             
         }
         
-        //更多按钮
-        moreBtn.snp.remakeConstraints { (make) in
-            make.right.equalTo(sourceView.snp.right).offset(-SM_MRAGIN_15)
-            make.centerY.equalTo(sourceView.snp.centerY)
-            make.width.height.equalTo(25*APP_SCALE)
-        }
         
-        
-        //容器View
-        collectionView.snp.remakeConstraints { (make) in
-            make.top.equalTo(sourceView.snp.bottom).offset(SM_MRAGIN_5)
-            make.left.right.equalTo(self)
-            make.height.equalTo(SCROLL_VIEW_HEIGHT)
-        }
+        if model.cellH != 0 { return }
+        //顶部来源View
+        cellH += FOCUS_CELL_SOURCE_VIEW_HEIGHT
         //滚动容器高度
         cellH += SM_MRAGIN_5 + SCROLL_VIEW_HEIGHT
-        
-        //底部分割线
-        lineView.snp.remakeConstraints { (make) in
-            make.top.equalTo(collectionView.snp.bottom).offset(SM_MRAGIN_15)
-            make.left.right.equalTo(self)
-            make.height.equalTo(SM_MRAGIN_10)
-        }
         //底部分割线
         cellH += SM_MRAGIN_15 + SM_MRAGIN_10
-        
         model.cellH = cellH
         
     }
@@ -357,7 +396,7 @@ extension FriendCollectOrLikeCell:UICollectionViewDelegate,UICollectionViewDataS
         let item = collectionView.dequeueReusableCell(withReuseIdentifier: PerNoteItem.identifier, for: indexPath) as! PerNoteItem
         item.layer.cornerRadius = 5*APP_SCALE
         item.backgroundColor = UIColor.white
-        item.layer.shadowColor = UIColor.randomColor().cgColor
+        item.layer.shadowColor = UIColor.purple.cgColor
         item.layer.shadowOffset = CGSize.zero
         item.layer.shadowRadius = 3
         item.layer.shadowOpacity = 0.5;

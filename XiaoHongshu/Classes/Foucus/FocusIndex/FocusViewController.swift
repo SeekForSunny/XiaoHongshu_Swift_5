@@ -56,6 +56,9 @@ extension FocusViewController{
                 let json = JSON(data: response.data)
                 if let dataArr = json["data"].arrayObject as?  [[String: AnyObject]]{
                     self?.contentArr = Mapper<FocusModel>().mapArray(JSONArray: dataArr)
+                    DispatchQueue.global().async(execute: {
+                                                self?.getTextH(modelArr:self?.contentArr)
+                    })
                     self?.tableView.reloadData()
                 }
                 
@@ -66,6 +69,31 @@ extension FocusViewController{
         }
     }
     
+    //计算内容高度
+    func getTextH(modelArr:[FocusModel]?){
+        
+        guard let modelArr = modelArr else {
+            return
+        }
+        for (_,model) in modelArr.enumerated() {
+            
+            //计算描述文字高度
+            if let desc = model.note_list?.first?.desc {
+                let textInfo = Utils.loadtextInfo(text: desc, font: UIFont.systemFont(ofSize: 15*APP_SCALE), width: SCREEN_WIDTH - 2*SM_MRAGIN_15, numberOfLine: 2)
+                model.note_list?.first?.descH = textInfo.textH
+                model.note_list?.first?.descAttrText = textInfo.attributedText
+            }
+            
+             //计算描述标题高度
+            if let title = model.note_list?.first?.title {
+                let textInfo = Utils.loadtextInfo(text: title, font: UIFont.boldSystemFont(ofSize: 15*APP_SCALE), width: SCREEN_WIDTH - 2*SM_MRAGIN_15, numberOfLine: 2)
+                model.note_list?.first?.titleH = textInfo.textH
+                model.note_list?.first?.titleAttrText = textInfo.attributedText
+            }
+            
+        }
+        
+    }
 }
 
 //TableView 数据源代理方法
@@ -134,11 +162,17 @@ extension FocusViewController{
         } else  if recommend_reason.contains("friend_follow_user"){
             
             // 叫我诺诺 关注了 2 位用户
-            let cell = FriendFollowUserCell.cell(tableView: tableView)
+            let cell = FriendFollowCell.cell(tableView: tableView)
             cell.fillter(model: model)
             return cell
             
-        }  else {
+        }  else  if recommend_reason.contains("friend_follow_vendor"){ //关注了商家
+            
+            let cell = FriendFollowCell.cell(tableView: tableView)
+            cell.fillter(model: model)
+            return cell
+            
+        }else{
             
             return defaultCell
             
@@ -157,6 +191,18 @@ extension FocusViewController{
         
     }
     
-    
 }
+
+
+extension FocusViewController{
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVc = FocusDetailViewController()
+        let model = contentArr[indexPath.row]
+        detailVc.note_id = model.note_list?.first?.id
+        detailVc.images_list = model.note_list?.first?.images_list
+        navigationController?.pushViewController(detailVc, animated: true)
+    }
+}
+
 

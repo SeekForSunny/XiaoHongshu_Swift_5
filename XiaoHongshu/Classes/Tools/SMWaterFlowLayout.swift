@@ -8,10 +8,11 @@
 
 import UIKit
 
-protocol SMWaterFlowLayoutDataSource:class {
+@objc protocol SMWaterFlowLayoutDataSource:class {
 
     func waterFlowLayout(layout:SMWaterFlowLayout, itemWidth:CGFloat, heightForItemAtIndex index:Int) -> CGFloat;
 
+    func waterFlowLayout(layout:SMWaterFlowLayout, contentHeight:CGFloat);
 }
 
 class SMWaterFlowLayout: UICollectionViewFlowLayout {
@@ -68,6 +69,9 @@ extension SMWaterFlowLayout{
 
 extension SMWaterFlowLayout{
     override var collectionViewContentSize: CGSize{
+        
+        dataSource?.waterFlowLayout(layout: self, contentHeight: maxHeight)
         return CGSize(width: UIScreen.main.bounds.size.width, height: maxHeight)
+        
     }
 }

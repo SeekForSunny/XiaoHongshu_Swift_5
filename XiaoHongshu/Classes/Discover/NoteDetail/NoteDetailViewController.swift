@@ -10,6 +10,9 @@ import UIKit
 
 class NoteDetailViewController: UIViewController {
 
+    //上级模型数据
+    var model:DiscoverModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,8 +20,12 @@ class NoteDetailViewController: UIViewController {
         setupUIContent()
     }
     
+    //初始化设置
     func setupUIContent(){
+        
+        //设置背景经验色
         view.backgroundColor = UIColor.randomColor()
     }
+    
 
 }

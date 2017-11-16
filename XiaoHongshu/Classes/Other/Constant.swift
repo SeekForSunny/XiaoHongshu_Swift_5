@@ -39,6 +39,13 @@ let FOCUS_CELL_TOOL_BAR_HEIGHT = 35*APP_SCALE
 //关注cell顶部数据来源View高度
 let FOCUS_CELL_SOURCE_VIEW_HEIGHT = 44*APP_SCALE
 
+//笔记详情 - 模块头部View高度
+let NOTE_DETAIL_HEADER_VIEW_HEIGHT =  40*APP_SCALE
+
+//笔记详情 - 评论区个人编辑View高度
+let NOTE_DETAIL_USER_EDIT_VIEW_HEIGHT =  55*APP_SCALE
+
+
 //字体设置
 let SYSTEM_FONT_12 =  UIFont.systemFont(ofSize: 12*APP_SCALE)
 let SYSTEM_FONT_13 =  UIFont.systemFont(ofSize: 13*APP_SCALE)

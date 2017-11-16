@@ -18,7 +18,7 @@
 		2A034D7B1FADF20700C8FBEB /* FocusNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D551FADF20700C8FBEB /* FocusNormalCell.swift */; };
 		2A034D7C1FADF20700C8FBEB /* FocusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D561FADF20700C8FBEB /* FocusViewController.swift */; };
 		2A034D7D1FADF20700C8FBEB /* FriendCollectOrLikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D571FADF20700C8FBEB /* FriendCollectOrLikeCell.swift */; };
-		2A034D7E1FADF20700C8FBEB /* FriendFollowUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D581FADF20700C8FBEB /* FriendFollowUserCell.swift */; };
+		2A034D7E1FADF20700C8FBEB /* FriendFollowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D581FADF20700C8FBEB /* FriendFollowCell.swift */; };
 		2A034D7F1FADF20700C8FBEB /* RecommendUsersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D591FADF20700C8FBEB /* RecommendUsersCell.swift */; };
 		2A034D801FADF20700C8FBEB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D5B1FADF20700C8FBEB /* MainViewController.swift */; };
 		2A034D811FADF20700C8FBEB /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D5C1FADF20700C8FBEB /* NavigationController.swift */; };
@@ -38,6 +38,16 @@
 		2A034D8F1FADF20700C8FBEB /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D701FADF20700C8FBEB /* UIImage+Color.swift */; };
 		2A034D901FADF20700C8FBEB /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D711FADF20700C8FBEB /* UIImage+Extension.swift */; };
 		2A034D911FADF20700C8FBEB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034D721FADF20700C8FBEB /* Utils.swift */; };
+		2A1A571C1FB6F90A0000FD0E /* F_CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1A571B1FB6F90A0000FD0E /* F_CommentView.swift */; };
+		2A5FD8BF1FB983E200F30CF0 /* F_NoteDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5FD8BE1FB983E200F30CF0 /* F_NoteDetailModel.swift */; };
+		2A72AABB1FB4A7E200BBC42B /* FocusDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72AABA1FB4A7E200BBC42B /* FocusDetailViewController.swift */; };
+		2A72BF8E1FB5A1C80021F5D3 /* F_CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72BF8D1FB5A1C80021F5D3 /* F_CommentModel.swift */; };
+		2A72BF901FB5B69D0021F5D3 /* F_CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72BF8F1FB5B69D0021F5D3 /* F_CommentCell.swift */; };
+		2A72BF921FB5B7680021F5D3 /* F_NoteDescView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72BF911FB5B7680021F5D3 /* F_NoteDescView.swift */; };
+		2A72BF941FB5B9400021F5D3 /* F_BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72BF931FB5B9400021F5D3 /* F_BannerView.swift */; };
+		2A8B077E1FB86C1300F84461 /* F_RelatedNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8B077D1FB86C1300F84461 /* F_RelatedNoteCell.swift */; };
+		2A9B4C401FB74AAD00545294 /* F_RelatedNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9B4C3F1FB74AAD00545294 /* F_RelatedNoteView.swift */; };
+		2A9B4C421FB74FA200545294 /* F_RelatedNoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9B4C411FB74FA200545294 /* F_RelatedNoteModel.swift */; };
 		2AFB59171F98414400DFE1FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB59161F98414400DFE1FB /* Assets.xcassets */; };
 		EA477C134D3A0E1776ACF493 /* Pods_XiaoHongshu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E11C695458B6535A9B9577 /* Pods_XiaoHongshu.framework */; };
 /* End PBXBuildFile section */
@@ -54,7 +64,7 @@
 		2A034D551FADF20700C8FBEB /* FocusNormalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusNormalCell.swift; sourceTree = "<group>"; };
 		2A034D561FADF20700C8FBEB /* FocusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusViewController.swift; sourceTree = "<group>"; };
 		2A034D571FADF20700C8FBEB /* FriendCollectOrLikeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCollectOrLikeCell.swift; sourceTree = "<group>"; };
-		2A034D581FADF20700C8FBEB /* FriendFollowUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendFollowUserCell.swift; sourceTree = "<group>"; };
+		2A034D581FADF20700C8FBEB /* FriendFollowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendFollowCell.swift; sourceTree = "<group>"; };
 		2A034D591FADF20700C8FBEB /* RecommendUsersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendUsersCell.swift; sourceTree = "<group>"; };
 		2A034D5B1FADF20700C8FBEB /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2A034D5C1FADF20700C8FBEB /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -74,6 +84,16 @@
 		2A034D701FADF20700C8FBEB /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		2A034D711FADF20700C8FBEB /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		2A034D721FADF20700C8FBEB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		2A1A571B1FB6F90A0000FD0E /* F_CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F_CommentView.swift; sourceTree = "<group>"; };
+		2A5FD8BE1FB983E200F30CF0 /* F_NoteDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F_NoteDetailModel.swift; sourceTree = "<group>"; };
+		2A72AABA1FB4A7E200BBC42B /* FocusDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDetailViewController.swift; sourceTree = "<group>"; };
+		2A72BF8D1FB5A1C80021F5D3 /* F_CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F_CommentModel.swift; sourceTree = "<group>"; };
+		2A72BF8F1FB5B69D0021F5D3 /* F_CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F_CommentCell.swift; sourceTree = "<group>"; };
+		2A72BF911FB5B7680021F5D3 /* F_NoteDescView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F_NoteDescView.swift; sourceTree = "<group>"; };
+		2A72BF931FB5B9400021F5D3 /* F_BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F_BannerView.swift; sourceTree = "<group>"; };
+		2A8B077D1FB86C1300F84461 /* F_RelatedNoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F_RelatedNoteCell.swift; sourceTree = "<group>"; };
+		2A9B4C3F1FB74AAD00545294 /* F_RelatedNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F_RelatedNoteView.swift; sourceTree = "<group>"; };
+		2A9B4C411FB74FA200545294 /* F_RelatedNoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F_RelatedNoteModel.swift; sourceTree = "<group>"; };
 		2AFB590C1F98414400DFE1FB /* XiaoHongshu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoHongshu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AFB59161F98414400DFE1FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AFB591B1F98414400DFE1FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -105,15 +125,15 @@
 		2A034D471FADF20700C8FBEB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				2A034D481FADF20700C8FBEB /* Cart */,
-				2A034D4A1FADF20700C8FBEB /* Discover */,
 				2A034D511FADF20700C8FBEB /* Foucus */,
-				2A034D5A1FADF20700C8FBEB /* Main */,
-				2A034D5D1FADF20700C8FBEB /* Message */,
+				2A034D4A1FADF20700C8FBEB /* Discover */,
+				2A034D681FADF20700C8FBEB /* Shopping */,
 				2A034D5F1FADF20700C8FBEB /* Mine */,
+				2A034D5D1FADF20700C8FBEB /* Message */,
+				2A034D481FADF20700C8FBEB /* Cart */,
+				2A034D5A1FADF20700C8FBEB /* Main */,
 				2A034D621FADF20700C8FBEB /* Other */,
 				2A034D661FADF20700C8FBEB /* resource */,
-				2A034D681FADF20700C8FBEB /* Shopping */,
 				2A034D6A1FADF20700C8FBEB /* Tools */,
 			);
 			path = Classes;
@@ -149,6 +169,7 @@
 		2A034D4F1FADF20700C8FBEB /* NoteDetail */ = {
 			isa = PBXGroup;
 			children = (
+				2AD946261FB678C9009E221E /* New Group */,
 				2A034D501FADF20700C8FBEB /* NoteDetailViewController.swift */,
 			);
 			path = NoteDetail;
@@ -158,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				2A034D921FADF28100C8FBEB /* FocusIndex */,
+				2A72AAB91FB4A79200BBC42B /* FocusDetail */,
 			);
 			path = Foucus;
 			sourceTree = "<group>";
@@ -236,12 +258,36 @@
 				2A034D531FADF20700C8FBEB /* FocusCellToolBar.swift */,
 				2A034D541FADF20700C8FBEB /* FocusModel.swift */,
 				2A034D551FADF20700C8FBEB /* FocusNormalCell.swift */,
-				2A034D561FADF20700C8FBEB /* FocusViewController.swift */,
 				2A034D571FADF20700C8FBEB /* FriendCollectOrLikeCell.swift */,
-				2A034D581FADF20700C8FBEB /* FriendFollowUserCell.swift */,
+				2A034D581FADF20700C8FBEB /* FriendFollowCell.swift */,
 				2A034D591FADF20700C8FBEB /* RecommendUsersCell.swift */,
+				2A034D561FADF20700C8FBEB /* FocusViewController.swift */,
 			);
 			path = FocusIndex;
+			sourceTree = "<group>";
+		};
+		2A72AAB91FB4A79200BBC42B /* FocusDetail */ = {
+			isa = PBXGroup;
+			children = (
+				2A72AABA1FB4A7E200BBC42B /* FocusDetailViewController.swift */,
+				2A5FD8BE1FB983E200F30CF0 /* F_NoteDetailModel.swift */,
+				2A72BF931FB5B9400021F5D3 /* F_BannerView.swift */,
+				2A72BF911FB5B7680021F5D3 /* F_NoteDescView.swift */,
+				2A1A571B1FB6F90A0000FD0E /* F_CommentView.swift */,
+				2A72BF8F1FB5B69D0021F5D3 /* F_CommentCell.swift */,
+				2A72BF8D1FB5A1C80021F5D3 /* F_CommentModel.swift */,
+				2A9B4C3F1FB74AAD00545294 /* F_RelatedNoteView.swift */,
+				2A8B077D1FB86C1300F84461 /* F_RelatedNoteCell.swift */,
+				2A9B4C411FB74FA200545294 /* F_RelatedNoteModel.swift */,
+			);
+			path = FocusDetail;
+			sourceTree = "<group>";
+		};
+		2AD946261FB678C9009E221E /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		2AFB59031F98414400DFE1FB = {
@@ -406,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A034D891FADF20700C8FBEB /* ShoppingViewController.swift in Sources */,
+				2A8B077E1FB86C1300F84461 /* F_RelatedNoteCell.swift in Sources */,
 				2A034D831FADF20700C8FBEB /* MineTableViewCell.swift in Sources */,
 				2A034D751FADF20700C8FBEB /* DiscoverModel.swift in Sources */,
 				2A034D8E1FADF20700C8FBEB /* UIColor+Extension.swift in Sources */,
@@ -414,19 +461,27 @@
 				2A034D8F1FADF20700C8FBEB /* UIImage+Color.swift in Sources */,
 				2A034D7C1FADF20700C8FBEB /* FocusViewController.swift in Sources */,
 				2A034D8D1FADF20700C8FBEB /* UIBarButtonItem+Extention.swift in Sources */,
+				2A1A571C1FB6F90A0000FD0E /* F_CommentView.swift in Sources */,
 				2A034D781FADF20700C8FBEB /* DefaultTableViewCell.swift in Sources */,
 				2A034D8B1FADF20700C8FBEB /* SMSearchView.swift in Sources */,
-				2A034D7E1FADF20700C8FBEB /* FriendFollowUserCell.swift in Sources */,
+				2A72BF941FB5B9400021F5D3 /* F_BannerView.swift in Sources */,
+				2A034D7E1FADF20700C8FBEB /* FriendFollowCell.swift in Sources */,
 				2A034D761FADF20700C8FBEB /* DiscoverViewController.swift in Sources */,
 				2A034D8C1FADF20700C8FBEB /* SMWaterFlowLayout.swift in Sources */,
+				2A5FD8BF1FB983E200F30CF0 /* F_NoteDetailModel.swift in Sources */,
 				2A034D771FADF20700C8FBEB /* NoteDetailViewController.swift in Sources */,
+				2A72BF8E1FB5A1C80021F5D3 /* F_CommentModel.swift in Sources */,
 				2A034D7A1FADF20700C8FBEB /* FocusModel.swift in Sources */,
 				2A034D811FADF20700C8FBEB /* NavigationController.swift in Sources */,
 				2A034D801FADF20700C8FBEB /* MainViewController.swift in Sources */,
 				2A034D8A1FADF20700C8FBEB /* MoyaAPI.swift in Sources */,
 				2A034D791FADF20700C8FBEB /* FocusCellToolBar.swift in Sources */,
+				2A72BF901FB5B69D0021F5D3 /* F_CommentCell.swift in Sources */,
+				2A9B4C421FB74FA200545294 /* F_RelatedNoteModel.swift in Sources */,
 				2A034D841FADF20700C8FBEB /* MineViewController.swift in Sources */,
 				2A034D861FADF20700C8FBEB /* config.swift in Sources */,
+				2A72BF921FB5B7680021F5D3 /* F_NoteDescView.swift in Sources */,
+				2A72AABB1FB4A7E200BBC42B /* FocusDetailViewController.swift in Sources */,
 				2A034D871FADF20700C8FBEB /* Constant.swift in Sources */,
 				2A034D901FADF20700C8FBEB /* UIImage+Extension.swift in Sources */,
 				2A034D821FADF20700C8FBEB /* MessageViewController.swift in Sources */,
@@ -435,6 +490,7 @@
 				2A034D7D1FADF20700C8FBEB /* FriendCollectOrLikeCell.swift in Sources */,
 				2A034D7F1FADF20700C8FBEB /* RecommendUsersCell.swift in Sources */,
 				2A034D7B1FADF20700C8FBEB /* FocusNormalCell.swift in Sources */,
+				2A9B4C401FB74AAD00545294 /* F_RelatedNoteView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
