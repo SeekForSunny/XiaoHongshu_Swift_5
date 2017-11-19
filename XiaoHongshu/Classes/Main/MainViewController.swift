@@ -8,8 +8,6 @@
 
 import UIKit
 import SnapKit
-import RxSwift
-import RxCocoa
 import SwiftyJSON
 import SDWebImage
 
@@ -123,7 +121,8 @@ extension MainViewController{
     func setupChildsController(){
         
         // 关注
-        let focusVc = FocusViewController()
+//        let focusVc = FocusViewController()
+        let focusVc = AS_FocusViewController()
         addChildViewController(focusVc)
         
         //发现

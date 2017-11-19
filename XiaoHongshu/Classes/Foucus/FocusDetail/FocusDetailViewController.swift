@@ -70,6 +70,19 @@ class FocusDetailViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.setBackgroundImage(UIImage.image(color: UIColor.clear), for: UIBarMetrics.default)
+        self.automaticallyAdjustsScrollViewInsets = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage.image(color: UIColor.white), for: UIBarMetrics.default)
+    }
+    
 }
 
 //MARK: - 加载笔记详情
@@ -163,9 +176,8 @@ extension FocusDetailViewController{
                 make.height.equalTo(height)
             }
             self.scrollView.layoutIfNeeded()
-            
         })
-        
+
         bannerVH = height
         self.setScrollContentSize()
     }

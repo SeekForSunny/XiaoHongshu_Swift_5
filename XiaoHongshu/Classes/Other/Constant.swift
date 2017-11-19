@@ -27,6 +27,7 @@ let FOCUS_CELL_BACKGROUND_COLOR = UIColor.init(r: 254, g: 254, b: 254)
 let LIGHT_TEXT_COLOR = UIColor.init(r: 140 , g: 140, b: 140)
 
 //间隙
+let SM_MRAGIN_3  = 3*APP_SCALE
 let SM_MRAGIN_5  = 5*APP_SCALE
 let SM_MRAGIN_10 = 10*APP_SCALE
 let SM_MRAGIN_15 = 15*APP_SCALE
@@ -47,6 +48,7 @@ let NOTE_DETAIL_USER_EDIT_VIEW_HEIGHT =  55*APP_SCALE
 
 
 //字体设置
+let SYSTEM_FONT_11 =  UIFont.systemFont(ofSize: 11*APP_SCALE)
 let SYSTEM_FONT_12 =  UIFont.systemFont(ofSize: 12*APP_SCALE)
 let SYSTEM_FONT_13 =  UIFont.systemFont(ofSize: 13*APP_SCALE)
 let SYSTEM_FONT_14 =  UIFont.systemFont(ofSize: 14*APP_SCALE)
@@ -56,3 +58,20 @@ let BOLD_SYSTEM_FONT_12 =  UIFont.boldSystemFont(ofSize: 12*APP_SCALE)
 let BOLD_SYSTEM_FONT_13 =  UIFont.boldSystemFont(ofSize: 13*APP_SCALE)
 let BOLD_SYSTEM_FONT_14 =  UIFont.boldSystemFont(ofSize: 14*APP_SCALE)
 let BOLD_SYSTEM_FONT_15 =  UIFont.boldSystemFont(ofSize: 15*APP_SCALE)
+
+
+
+//关注CellType
+public enum FocusCellType : Int {
+    
+    case friendPost
+    case friendCollect
+    case friendLike
+    case recommendUser
+    case friendFollowUser
+    case friendFollowVendor
+    
+}
+
+
+

@@ -21,7 +21,7 @@ class F_BannerView: UIView {
     }()
     
     // model
-    var model:FocusModel?
+    var images_list:[ImageModel]?
     
     //高度改变回调bolck
     public typealias Completion = (_ bannerH: CGFloat) -> Void
@@ -30,12 +30,12 @@ class F_BannerView: UIView {
     
     func fillterWith(images_list:[ImageModel],completion:@escaping Completion)->CGFloat {
         
-//        self.model = model
+        self.images_list = images_list
         self.completion = completion
         
         bannerView.backgroundColor = BACK_GROUND_COLOR
         
-//        guard let images_list = model.note_list?.first?.images_list else{return 0}
+        //        guard let images_list = model.note_list?.first?.images_list else{return 0}
         guard let height = images_list.first?.height else {return 0}
         guard let width = images_list.first?.width else {return 0}
         let rate = width/height
@@ -76,20 +76,20 @@ extension F_BannerView:UIScrollViewDelegate{
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            scrollViewDidEndScrollingAnimation(scrollView)
-        }
+        scrollViewDidEndScrollingAnimation(scrollView)
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         
         let index =  Int(scrollView.contentOffset.x/SCREEN_WIDTH)
-        guard let height = model?.note_list?.first?.images_list?[index].height else {return}
-        guard let width = model?.note_list?.first?.images_list?[index].width  else {return}
+        guard let height = images_list?[index].height else {return}
+        guard let width =  images_list?[index].width  else {return}
         let rate = width / height
         let itemH = SCREEN_WIDTH / rate
         
-        if let block = self.completion  { block(itemH) }
+        if let block = self.completion  {
+            block(itemH)
+        }
         
     }
     
